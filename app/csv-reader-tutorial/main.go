@@ -24,12 +24,10 @@ const csvFile = "./csv/majestic_million.csv"
 var dataHeaders = make([]string, 0)
 
 func main() {
-	// Load .env file
 	if err := godotenv.Load(); err != nil {
 		log.Fatalf("error loading .env: %v", err)
 	}
 
-	// Read POSTGRES_URI
 	dbURL := os.Getenv("POSTGRES_URI")
 	if dbURL == "" {
 		log.Fatal("POSTGRES_URI is not set")
