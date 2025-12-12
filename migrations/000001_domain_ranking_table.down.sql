@@ -1,0 +1,4 @@
+DROP INDEX IF EXISTS idx_domain;
+DROP INDEX IF EXISTS idx_tld;
+
+DROP TABLE IF EXISTS domain_ranking;

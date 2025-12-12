@@ -1,0 +1,11 @@
+services:
+  postgres:
+    image: postgres:17.5-alpine
+    container_name: go-csv-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: go-csv
+    ports:
+      - "5433:5432"
