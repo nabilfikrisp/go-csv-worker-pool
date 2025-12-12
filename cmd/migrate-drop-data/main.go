@@ -18,24 +18,29 @@ func main() {
 
 	// Read POSTGRES_URI
 	dbURL := os.Getenv("POSTGRES_URI")
+
 	if dbURL == "" {
 		log.Fatal("POSTGRES_URI is not set")
 	}
 
-	// Initialize migration instance
-	m, err := migrate.New(
-		"file://migrations",
-		dbURL,
-	)
+	// Migration instance
+	m, err := migrate.New("file://migrations", dbURL)
 	if err != nil {
 		log.Fatalf("migrate init failed: %v", err)
 	}
 
-	// Run migrations DOWN (rollback one step)
-	err = m.Steps(-1)
+	// Reset all migrations
+	err = m.Down()
 	if err != nil && err != migrate.ErrNoChange {
-		log.Fatalf("migrate down failed: %v", err)
+		log.Fatalf("migrate reset failed: %v", err)
+	}
+	log.Println("Database reset (all migrations reverted).")
+
+	// Re-apply all migrations
+	err = m.Up()
+	if err != nil && err != migrate.ErrNoChange {
+		log.Fatalf("migrate up failed: %v", err)
 	}
 
-	log.Println("Rolled back one migration successfully")
+	log.Println("Migrations applied successfully.")
 }

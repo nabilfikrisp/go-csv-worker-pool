@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 
@@ -19,7 +18,7 @@ func main() {
 
 	// Read POSTGRES_URI
 	dbURL := os.Getenv("POSTGRES_URI")
-	fmt.Println(dbURL)
+
 	if dbURL == "" {
 		log.Fatal("POSTGRES_URI is not set")
 	}
