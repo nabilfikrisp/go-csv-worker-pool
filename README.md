@@ -71,19 +71,23 @@ csv/majestic_million.csv
 
 ### 3. Run database migrations
 
-If the table already contains data (rows from a previous run), you may want to reset it first:
+If the table already contains data (rows from a previous run), you may want to clear the existing rows first:
 
 ```bash
-go run ./cmd/migrate-down/main.go
+go run ./cmd/migrate-drop-data/main.go
 ```
 
-Then apply the migrations:
+This command removes existing rows without dropping the schema.
 
-Before running any CSV processing, apply the database migrations:
+Then apply the migrations (only if needed):
+
+Before running any CSV processing **for the first time**, apply the database migrations:
 
 ```bash
 go run ./cmd/migrate-up/main.go
 ```
+
+This step does **not** need to be run every time. Only run it if the database schema has not been created yet.
 
 Make sure your database configuration is set correctly (e.g. via environment variables).
 
@@ -139,8 +143,6 @@ Below are the screenshots showing execution time for each approach:
 #### Simple Worker Pool
 
 ![assets/worker-pool.png](assets/worker-pool.png)
-
----
 
 ## Notes
 
